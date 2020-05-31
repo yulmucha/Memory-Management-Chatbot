@@ -45,6 +45,74 @@ ChatBot::~ChatBot()
 //// STUDENT CODE
 ////
 
+ChatBot::ChatBot(const ChatBot& source)
+{
+    std::cout << "ChatBot Copy Constructor" << std::endl;
+    _image = new wxBitmap(*source._image);
+    _currentNode = new GraphNode(*source._currentNode);
+    _rootNode = new GraphNode(*source._rootNode);
+    _chatLogic = new ChatLogic(*source._chatLogic);
+}
+
+ChatBot::ChatBot(ChatBot&& source)
+{
+    std::cout << "ChatBot Move Constructor" << std::endl;
+    _image = source._image;
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    _chatLogic = source._chatLogic;
+    source._image = nullptr;
+    source._currentNode = nullptr;
+    source._rootNode = nullptr;
+    source._chatLogic = nullptr;
+}
+
+ChatBot& ChatBot::operator=(const ChatBot& source)
+{
+    std::cout << "ChatBot Copy Assignment Operator" << std::endl;
+    if (this == &source)
+    {
+        return *this;
+    }
+
+    delete _image;
+    delete _currentNode;
+    delete _rootNode;
+    delete _chatLogic;
+
+    _image = new wxBitmap(*source._image);
+    _currentNode = new GraphNode(*source._currentNode);
+    _rootNode = new GraphNode(*source._rootNode);
+    _chatLogic = new ChatLogic(*source._chatLogic);
+
+    return *this;
+}
+
+ChatBot& ChatBot::operator=(ChatBot&& source)
+{
+    std::cout << "ChatBot Move Assignment Operator" << std::endl;
+    if (this == &source)
+    {
+        return *this;
+    }
+
+    delete _image;
+    delete _currentNode;
+    delete _rootNode;
+    delete _chatLogic;
+
+    _image = source._image;
+    _currentNode = source._currentNode;
+    _rootNode = source._rootNode;
+    _chatLogic = source._chatLogic;
+    source._image = nullptr;
+    source._currentNode = nullptr;
+    source._rootNode = nullptr;
+    source._chatLogic = nullptr;
+
+    return *this;
+}
+
 ////
 //// EOF STUDENT CODE
 
